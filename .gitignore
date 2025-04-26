@@ -1,0 +1,11 @@
+# Ignorar ejecutables
+*.exe
+*.out
+*.bin
+
+# Ignorar carpetas de dependencias (en caso uses módulos externos no locales)
+vendor/
+
+# Ignorar archivos del sistema
+.DS_Store
+
