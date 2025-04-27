@@ -1,1 +1,4 @@
-- Agregarle una base de datos real
+- Anadirle un Postgrest [x]
+- Darle una estructura real [x]
+- Cambiar el ID string a un UUID [ ]
+- Almacenar Imagenes de los Albumes [ ]

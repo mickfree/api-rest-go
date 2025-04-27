@@ -9,3 +9,5 @@ vendor/
 # Ignorar archivos del sistema
 .DS_Store
 
+# Ignorar el .env
+.env
