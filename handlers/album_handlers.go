@@ -8,6 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// add UUID
+
+
 // no necesita control de error por que estoy llamando una var global
 func GetAlbums(c *gin.Context) {
 	var albums []models.Album

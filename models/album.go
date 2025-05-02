@@ -1,11 +1,22 @@
 package models
 
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
+
 type Album struct {
-	ID       string `gorm:"primaryKey"`
-	Title    string
-	Artist   string
-	Year     int
-	Genre    string
-	Language string
-	Duration int64
+	ID       uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
+	Title    string    `json:"title"`
+	Artist   string    `json:"artist"`
+	Year     int       `json:"year"`
+	Genre    string    `json:"genre"`
+	Language string    `json:"language"`
+	Duration int64     `json:"duration"`
+}
+
+// add UUID
+func (album *Album) BeforeCreate(tx *gorm.DB) (err error) {
+	album.ID = uuid.New()
+	return
 }
