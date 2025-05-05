@@ -12,6 +12,9 @@ vendor/
 # Ignorar el .env
 .env
 
-# Ignore .jpg
-.jpg
-.png
+# Ignorar archivos de imagen
+*.jpg
+*.png
+
+# Ignorar directorio uploads
+/uploads/
