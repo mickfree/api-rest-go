@@ -21,6 +21,7 @@ func main() {
 	router.POST("/albums", handlers.CreateAlbum)
 	router.PUT("/albums/:id", handlers.UpdateAlbum)
 	router.DELETE("/albums/:id", handlers.DeleteAlbum)
+	router.Static("/uploads", "./uploads")
 
 	// Port
 	router.Run(":8888")

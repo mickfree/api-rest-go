@@ -11,3 +11,7 @@ vendor/
 
 # Ignorar el .env
 .env
+
+# Ignore .jpg
+.jpg
+.png
