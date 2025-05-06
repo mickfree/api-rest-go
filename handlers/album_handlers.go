@@ -140,7 +140,8 @@ func FilterAlbums(c *gin.Context) {
 	artist := c.Query("artist")
 	language := c.Query("language")
 	year := c.Query("year")
-
+	genre := c.Query("genre")
+	duration := c.Query("duration")
 	db := database.DB
 
 
@@ -155,6 +156,12 @@ func FilterAlbums(c *gin.Context) {
 	}
 	if year != "" {
 		db = db.Where("CAST(year AS TEXT) ILIKE ?", "%"+year+"%")
+	}
+	if genre != "" {
+		db = db.Where("genre ILIKE ?", "%"+genre+"%")
+	}
+	if duration != "" {
+		db = db.Where("CAST(duration AS TEXT) ILIKE ?", "%"+duration+"%")
 	}
 
 	var albums []models.Album
