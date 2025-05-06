@@ -22,6 +22,8 @@ func main() {
 	router.PUT("/albums/:id", handlers.UpdateAlbum)
 	router.DELETE("/albums/:id", handlers.DeleteAlbum)
 	router.Static("/uploads", "./uploads")
+	router.GET("/albums/search", handlers.SearchAlbums)
+	router.GET("/albums/filter", handlers.FilterAlbums) /// albums/filter?artist=floyd&genre=rock
 
 	// Port
 	router.Run(":8888")

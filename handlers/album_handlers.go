@@ -122,3 +122,34 @@ func DeleteAlbum(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Album eliminado"})
 }
+
+func SearchAlbums(c *gin.Context) {
+	query := c.Query("q")
+	var albums []models.Album
+
+	if err := database.DB.Where("title ILIKE ?  or artist ILIKE ? or CAST(year AS TEXT) ILIKE ? or genre ILIKE ? or language ILIKE ?", "%"+query+"%","%"+query+"%","%"+query+"%","%"+query+"%","%"+query+"%").Find(&albums).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error":"Error al buscar albumes"})
+		return
+	}
+
+	c.JSON(http.StatusOK, albums)
+}
+
+func FilterAlbums(c *gin.Context) {
+	title := c.Query("title")
+
+
+	db := database.DB
+
+
+	if title != "" {
+		db = db.Where("title ILIKE ?", "%"+title+"%")
+	}
+
+	var albums []models.Album
+	if err := db.Find(&albums).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error":"No encontro el elemento Indicado"})
+		return
+	}
+	c.JSON(http.StatusOK, albums)
+}
