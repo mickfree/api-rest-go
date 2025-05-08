@@ -24,6 +24,7 @@ func main() {
 	router.Static("/uploads", "./uploads")
 	router.GET("/albums/search", handlers.SearchAlbums)
 	router.GET("/albums/filter", handlers.FilterAlbums) /// albums/filter?artist=floyd&genre=rock
+	router.POST("/albums/:id/rating", handlers.RateAlbums)
 
 	// Port
 	router.Run(":8888")

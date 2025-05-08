@@ -35,7 +35,17 @@ func CreateAlbum(c *gin.Context) {
 	year, _ := strconv.Atoi(c.PostForm("year"))
 	genre := c.PostForm("genre")
 	language := c.PostForm("language")
-	duration, _ := strconv.ParseInt(c.PostForm("duration"), 10, 64)
+	if language == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "El campo language es obligatorio"})
+		return
+	}
+	duration, err := strconv.ParseInt(c.PostForm("duration"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error":"duracion invalida"})
+		return
+	}
+
+	rating, _ := strconv.ParseFloat(c.PostForm("rating"), 64)
 
 	var coverImagePath string
 	file, err := c.FormFile("cover")
@@ -55,6 +65,7 @@ func CreateAlbum(c *gin.Context) {
 		Language:   language,
 		Duration:   duration,
 		CoverImage: coverImagePath,
+		Rating:    rating,
 	}
 
 	database.DB.Create(&album)
@@ -142,6 +153,7 @@ func FilterAlbums(c *gin.Context) {
 	year := c.Query("year")
 	genre := c.Query("genre")
 	duration := c.Query("duration")
+	rating := c.Query("rating")
 	db := database.DB
 
 
@@ -163,6 +175,9 @@ func FilterAlbums(c *gin.Context) {
 	if duration != "" {
 		db = db.Where("CAST(duration AS TEXT) ILIKE ?", "%"+duration+"%")
 	}
+	if rating != "" {
+		db = db.Where("CAST(rating AS TEXT) ILIKE ?", "%"+rating+"%")
+	}
 
 	var albums []models.Album
 	if err := db.Find(&albums).Error; err != nil {
@@ -170,4 +185,26 @@ func FilterAlbums(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, albums)
+}
+
+func RateAlbums(c *gin.Context) {
+	id := c.Param("id")
+	var album models.Album
+
+	if err := database.DB.First(&album, "id = ?", id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"message": "Album no encontrado"})
+		return
+	}
+
+	ratingStr := c.PostForm("rating")
+	rating, err := strconv.ParseFloat(ratingStr, 64)
+	if err != nil || rating < 1 || rating > 5 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Rating debe ser un número entre 1 y 5"})
+		return
+	}
+
+	album.Rating = rating
+	database.DB.Save(&album)
+
+	c.JSON(http.StatusOK, album)
 }

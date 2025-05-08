@@ -14,6 +14,7 @@ type Album struct {
 	Language   string    `json:"language"`
 	Duration   int64     `json:"duration"`
 	CoverImage string    `json:"coverimage"`
+	Rating 	   float64   `json:"rating"`
 }
 
 // add UUID

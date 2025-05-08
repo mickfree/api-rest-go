@@ -5,6 +5,7 @@
 
 # Ignorar carpetas de dependencias (en caso uses módulos externos no locales)
 vendor/
+.vscode/
 
 # Ignorar archivos del sistema
 .DS_Store
@@ -18,3 +19,4 @@ vendor/
 
 # Ignorar directorio uploads
 /uploads/
+

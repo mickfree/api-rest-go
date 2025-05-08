@@ -4,7 +4,7 @@
 - Subir portada de álbum y guardar ruta en la base de datos [x]
 - Implementar búsqueda por título, artista o género [x]
 - Filtrar álbumes por año, idioma o duración mínima [x]
-- Agregar calificaciones (rating de 1 a 5) [ ]
+- Agregar calificaciones (rating de 1 a 5) [X]
 - Permitir comentarios o reseñas sobre los álbumes [ ]
 - Implementar sistema de favoritos o “me gusta” [ ]
 - Agregar paginación en las respuestas [ ]
